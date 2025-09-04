@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Measurement Tool</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+        
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app-container">
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        <div id="controls-container">
+            <h1>Land Measurement</h1>
+            <p>Click on the map to mark the boundaries of your land. The shape will close automatically.</p>
+            <div id="results">
+                <h2>Results</h2>
+                <p><strong>Area:</strong> <span id="area-display">0.0000</span> Hectares</p>
+                <p><strong>Perimeter:</strong> <span id="perimeter-display">0.00</span> Meters</p>
+            </div>
+           
+           
+            <button id="reset-button">Reset Map</button>
+            <button id="mark-location-button">Mark My Location</button> 
+            
+            <div id="history-container">
+
+            <div id="history-container">
+                <h2>Recent Calculations</h2>
+                <ul id="history-list">
+                    <li>No history yet.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+        
+    <script src="script.js"></script>
+</body>
+</html>
