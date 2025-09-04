@@ -1,5 +1,6 @@
-// server.js (Correct Backend Code)
+// server.js (Updated to use environment variables)
 
+require('dotenv').config(); // This must be at the very top to load the .env file
 const express = require('express');
 const cors = require('cors');
 const turf = require('@turf/turf');
@@ -7,12 +8,14 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+
+// Use the port from the .env file, or default to 3000 if it's not available
+const PORT = process.env.PORT || 3000;
 
 // --- Middleware ---
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // This points to your 'public' folder
+app.use(express.static('public'));
 
 // --- MongoDB Connection ---
 const MONGO_URI = 'mongodb://127.0.0.1:27017/landMeasurements';
@@ -32,13 +35,10 @@ const measurementSchema = new mongoose.Schema({
 const Measurement = mongoose.model('Measurement', measurementSchema);
 
 // --- API Endpoints ---
-
-// Main route to serve the frontend HTML file
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// API to calculate area and perimeter
 app.post('/api/calculate-area', async (req, res) => {
     const { coordinates } = req.body;
     if (!coordinates || !Array.isArray(coordinates) || coordinates.length < 4) {
@@ -63,7 +63,6 @@ app.post('/api/calculate-area', async (req, res) => {
     }
 });
 
-// API to get calculation history
 app.get('/api/history', async (req, res) => {
     try {
         const measurements = await Measurement.find().sort({ timestamp: -1 }).limit(10);
